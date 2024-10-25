@@ -1,10 +1,10 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.3.3'
+	id 'org.springframework.boot' version '3.3.4'
 	id 'io.spring.dependency-management' version '1.1.6'
 }
 
-group = 'ddnt.api'
+group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
 java {
@@ -24,9 +24,26 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// doma
+	implementation "org.seasar.doma:doma-core:2.53.1"
+	annotationProcessor "org.seasar.doma:doma-processor:2.53.1"
+	implementation group: 'org.seasar.doma.boot', name: 'doma-spring-boot-starter', version: '1.7.0'
+	// sql server
+	implementation 'com.microsoft.sqlserver:mssql-jdbc:12.2.0.jre8'
+
+	// MySql
+	implementation 'mysql:mysql-connector-java:8.0.33'
+
+	// ModelMapper
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.1'
+
+	// flyway
+	implementation "org.flywaydb:flyway-core:10.10.0"
+	implementation "org.flywaydb:flyway-mysql:10.10.0"
+	implementation "org.flywaydb:flyway-database-oracle:10.10.0"
+
 	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -34,4 +51,20 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+ArrayList<String> domaResources = ['META-INF/**/*.sql']
+
+processResources {
+	exclude domaResources
+}
+
+task copyDomaResources(type: Copy) {
+	from sourceSets.main.resources.srcDirs
+	into compileJava.destinationDirectory
+	include domaResources
+}
+
+compileJava {
+	dependsOn copyDomaResources
 }

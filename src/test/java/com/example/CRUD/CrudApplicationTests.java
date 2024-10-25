@@ -1,10 +1,10 @@
-package ddnt.api.be;
+package com.example.CRUD;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BeApplicationTests {
+class CrudApplicationTests {
 
 	@Test
 	void contextLoads() {
