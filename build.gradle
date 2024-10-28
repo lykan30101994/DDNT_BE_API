@@ -25,12 +25,20 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	// doma
-	implementation "org.seasar.doma:doma-core:2.53.1"
-	annotationProcessor "org.seasar.doma:doma-processor:2.53.1"
+	annotationProcessor group: 'org.seasar.doma', name: 'doma-processor', version: '2.53.1'
+	runtimeOnly group: 'org.seasar.doma', name: 'doma-core', version: '2.53.1'
+	// implementation group: 'org.seasar.doma', name: 'doma-jdbc', version: '2.53.1'
 	implementation group: 'org.seasar.doma.boot', name: 'doma-spring-boot-starter', version: '1.7.0'
-	// sql server
+    //
+	implementation group: 'jakarta.validation', name: 'jakarta.validation-api', version: '3.0.2'
+	// sql serve
 	implementation 'com.microsoft.sqlserver:mssql-jdbc:12.2.0.jre8'
+
+	// Spring JDBC
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 
 	// MySql
 	implementation 'mysql:mysql-connector-java:8.0.33'
